@@ -39,12 +39,25 @@ func ParseInts(path string) []int {
 	return ints
 }
 
-func ParseIntArrays(path string) [][]int {
-	lines := ParseLines(path)
+func ParseIntArrays(lines []string, separator string) [][]int {
 	var ints [][]int
 	for _, line := range lines {
 		var n []int
-		numbers := strings.Split(line, ",")
+		numbers := strings.Split(line, separator)
+		for _, number := range numbers {
+			parsedInt, _ := strconv.Atoi(number)
+			n = append(n, parsedInt)
+		}
+		ints = append(ints, n)
+	}
+	return ints
+}
+
+func ParseIntArraysFromFields(lines []string) [][]int {
+	var ints [][]int
+	for _, line := range lines {
+		var n []int
+		numbers := strings.Fields(line)
 		for _, number := range numbers {
 			parsedInt, _ := strconv.Atoi(number)
 			n = append(n, parsedInt)
