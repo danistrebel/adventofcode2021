@@ -15,7 +15,7 @@ func orderedPath(a int, b int) (int, int) {
 	}
 }
 
-func ParseWindMatrix(winds []string) [][]uint8 {
+func ParseWindMatrix(winds []string, parseDiagonal bool) [][]uint8 {
 	matrixDim := 1000
 	matrix := make([][]uint8, matrixDim)
 	for i := range matrix {
@@ -50,6 +50,27 @@ func ParseWindMatrix(winds []string) [][]uint8 {
 				matrix[x][startY] = matrix[x][startY] + 1
 			}
 		}
+
+		// diagonal
+		if parseDiagonal {
+			minY, maxY := orderedPath(startY, endY)
+			minX, maxX := orderedPath(startX, endX)
+
+			if maxY-minY == maxX-minX {
+
+				for d := 0; d <= maxX-minX; d++ {
+					if startX < endX && startY < endY {
+						matrix[startX+d][startY+d] = matrix[startX+d][startY+d] + 1
+					} else if startX < endX && startY > endY {
+						matrix[startX+d][startY-d] = matrix[startX+d][startY-d] + 1
+					} else if startX > endX && startY < endY {
+						matrix[startX-d][startY+d] = matrix[startX-d][startY+d] + 1
+					} else {
+						matrix[startX-d][startY-d] = matrix[startX-d][startY-d] + 1
+					}
+				}
+			}
+		}
 	}
 
 	return matrix
@@ -69,7 +90,11 @@ func CountTresholdValues(matrix [][]uint8, treshold uint8) int {
 
 func PrintSolution() {
 	wind := utils.ParseLines("./inputs/day5.txt")
-	windMatrix := ParseWindMatrix(wind)
+	windMatrix := ParseWindMatrix(wind, false)
 	counter := CountTresholdValues(windMatrix, 2)
 	fmt.Println("Wind Counter (Part 1)", counter)
+
+	windMatrixDiagonal := ParseWindMatrix(wind, true)
+	counterDiagonal := CountTresholdValues(windMatrixDiagonal, 2)
+	fmt.Println("Wind Counter with Diagonal (Part 2)", counterDiagonal)
 }
