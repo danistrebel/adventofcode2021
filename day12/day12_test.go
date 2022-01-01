@@ -57,3 +57,25 @@ func TestPaths(t *testing.T) {
 		t.Error("Unexpected number of paths. Got", paths, "expected", expectedNumberOfPaths)
 	}
 }
+
+func TestSingleLoopPaths(t *testing.T) {
+	links := []string{
+		"dc-end",
+		"HN-start",
+		"start-kj",
+		"dc-start",
+		"dc-HN",
+		"LN-dc",
+		"HN-end",
+		"kj-sa",
+		"kj-HN",
+		"kj-dc",
+	}
+
+	paths := findNumberOfPathsWithSingleSmallLoop(links)
+	expectedNumberOfPaths := 103
+
+	if paths != expectedNumberOfPaths {
+		t.Error("Unexpected number of paths. Got", paths, "expected", expectedNumberOfPaths)
+	}
+}
