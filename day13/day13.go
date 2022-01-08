@@ -126,4 +126,12 @@ func PrintSolution() {
 	gridFold := foldGrid(grid, folds[0])
 
 	fmt.Println("Dots visible (Part 1)", countDots(gridFold))
+
+	foldedGrid := grid
+
+	for _, fold := range folds {
+		foldedGrid = foldGrid(foldedGrid, fold)
+	}
+	fmt.Println("Code (Part 2)")
+	printGrid(foldedGrid)
 }
