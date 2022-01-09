@@ -76,5 +76,7 @@ func polymerSimulation(inputs []string, steps int) int {
 func PrintSolution() {
 	inputs := utils.ParseLines("./inputs/day14.txt")
 	simulation := polymerSimulation(inputs, 10)
-	fmt.Println("Poymer Simulation (Part 1)", simulation)
+	fmt.Println("Poymer Simulation 10 Days (Part 1)", simulation)
+	longSimulation := polymerSimulation(inputs, 40)
+	fmt.Println("Poymer Simulation 40 days (Part 2)", longSimulation)
 }
