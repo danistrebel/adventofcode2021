@@ -103,9 +103,36 @@ func calculateMinRisk(input [][]int) int {
 	return 9999
 }
 
+func extendPattern(input [][]int, factor int) [][]int {
+	new := make([][]int, len(input)*factor)
+
+	rows := len(input)
+	cols := len(input[0])
+
+	for rf := 0; rf < factor; rf++ {
+		for r := 0; r < rows; r++ {
+			row := make([]int, cols*factor)
+			for cf := 0; cf < factor; cf++ {
+				for c := 0; c < cols; c++ {
+					newValue := input[r][c] + cf + rf
+					if newValue > 9 {
+						row[cf*cols+c] = newValue % 9
+					} else {
+						row[cf*cols+c] = newValue
+					}
+				}
+			}
+			new[rf*rows+r] = row
+		}
+	}
+	return new
+}
+
 func PrintSolution() {
 	lines := utils.ParseLines("inputs/day15.txt")
 	input := utils.ParseIntArrays(lines, "")
 	minRisk := calculateMinRisk(input)
 	fmt.Println("Min Risk (Part 1)", minRisk)
+	extendedMinRisk := calculateMinRisk(extendPattern(input, 5))
+	fmt.Println("Extended Min Risk (Part 2)", extendedMinRisk)
 }
