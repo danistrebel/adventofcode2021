@@ -9,6 +9,7 @@ import (
 	"adventofcode/day14"
 	"adventofcode/day15"
 	"adventofcode/day16"
+	"adventofcode/day17"
 	"adventofcode/day2"
 	"adventofcode/day3"
 	"adventofcode/day4"
@@ -69,4 +70,7 @@ func main() {
 
 	fmt.Println("+++++ DAY 16 +++++")
 	day16.PrintSolution()
+
+	fmt.Println("+++++ DAY 17 +++++")
+	day17.PrintSolution()
 }
